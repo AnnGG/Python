@@ -1,0 +1,16 @@
+["Withdrawn: ", 1955.0, "08-12-2021 19:04"]
+["Withdrawn: ", 1945.0, "08-12-2021 19:07"]
+["Withdrawn: ", 1925.0, "08-12-2021 19:15"]
+["Withdrawn: ", 15.0, "grn", "08-12-2021 19:18"]
+["Withdrawn: ", 12.0, "grn", "08-12-2021 20:07"]
+
+["Balance replenishment: ", 4.0, "grn", "08-12-2021 20:13"]
+["Withdrawn: ", 2.0, "grn", "08-12-2021 20:22"]
+["Withdrawn: ", 2.0, "grn", "08-12-2021 20:23"]
+["Balance replenishment: ", 2.0, "grn", "08-12-2021 20:24"]
+["Balance replenishment: ", 12.0, "grn", "08-12-2021 20:25"]
+
+{"action": "withdrawn", "sum": 12.0, "currency": "grn", "data": "09-12-2021 05:59"}
+{"action": "withdrawn", "sum": 45.0, "currency": "grn", "data": "09-12-2021 05:59"}
+{"action": "replenishment", "sum": 45.0, "currency": "grn", "data": "09-12-2021 06:05"}
+{"action": "replenishment", "sum": 45.0, "currency": "grn", "data": "09-12-2021 06:06"}
