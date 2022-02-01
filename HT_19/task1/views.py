@@ -56,7 +56,7 @@ def askstor(articles_list):
 
     for item in articles_list:
         try:
-            table = Askstor.objects.create(
+            table_ask = Askstor.objects.create(
                 by=item['by'],
                 descendants=item['descendants'],
                 id_ask=item['id'],
@@ -66,7 +66,7 @@ def askstor(articles_list):
                 title=item['title'],
                 type=item['type']
             )
-            table.save()
+            table_ask.save()
 
         except IntegrityError as e:
             if 'UNIQUE constraint' in str(e.args):
@@ -79,9 +79,9 @@ def jobstor(articles_list):
     for item in articles_list:
 
         try:
-            table = Jobstor.objects.create(
+            table_job = Jobstor.objects.create(
                 by=item['by'],
-                id=item['id'],
+                id_job=item['id'],
                 score=item.get('score', ''),
                 text=item.get('text', ''),
                 time=item['time'],
@@ -89,7 +89,7 @@ def jobstor(articles_list):
                 type=item['type'],
                 url=item.get('url', '')
             )
-            table.save()
+            table_job.save()
         except IntegrityError as e:
             if 'UNIQUE constraint' in str(e.args):
                 print('This item already exists.')
@@ -101,10 +101,10 @@ def newstor(articles_list):
     for item in articles_list:
 
         try:
-            table = Newstor.objects.create(
+            table_new = Newstor.objects.create(
                 by=item['by'],
                 descendants=item['descendants'],
-                id=item['id'],
+                id_new=item['id'],
                 score=item['score'],
                 time=item['time'],
                 title=item['title'],
@@ -112,7 +112,7 @@ def newstor(articles_list):
                 url=item.get('url', ''),
                 text=item.get('text', '')
             )
-            table.save()
+            table_new.save()
         except IntegrityError as e:
             if 'UNIQUE constraint' in str(e.args):
                 print('This item already exists.')
@@ -124,10 +124,10 @@ def showstor(articles_list):
     for item in articles_list:
 
         try:
-            table = Showstor.objects.create(
+            table_show = Showstor.objects.create(
                 by=item['by'],
                 descendants=item['descendants'],
-                id=item['id'],
+                id_show=item['id'],
                 score=item['score'],
                 text=item.get('text', ''),
                 time=item['time'],
@@ -136,7 +136,7 @@ def showstor(articles_list):
                 url=item.get('url', ''),
 
             )
-            table.save()
+            table_show.save()
         except IntegrityError as e:
             if 'UNIQUE constraint' in str(e.args):
                 print('This item already exists.')
