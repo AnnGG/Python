@@ -51,7 +51,5 @@ class Migration(migrations.Migration):
                 ('url', models.CharField(max_length=200)),
             ],
         ),
-        # migrations.DeleteModel(
-        #     name='Askstoris',
-        # ),
+
     ]

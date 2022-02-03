@@ -19,20 +19,31 @@ from .models import Askstor, Jobstor, Showstor, Newstor
 
 
 def get_ids_list(user_choice):
+
     categ_url = f'https://hacker-news.firebaseio.com/v0/{user_choice}.json'
     category_list = requests.get(url=categ_url).json()
+    print(category_list)
     return category_list
 
 
-def create_list_categories(drop_category):
+def create_list_categories(drop_category, l_id):
+
     article_dicts_list = []
     category_articles = get_ids_list(drop_category)
 
+
     for article in tqdm(category_articles):
-        article_on_id = f'https://hacker-news.firebaseio.com/v0/item/{article}.json'
-        req_article_dict = requests.get(url=article_on_id).json()
-        article_dicts_list.append(req_article_dict)
-        print(article_dicts_list)
+        if article not in l_id:
+            article_on_id = f'https://hacker-news.firebaseio.com/v0/item/{article}.json'
+            req_article_dict = requests.get(url=article_on_id).json()
+            if req_article_dict is not None:
+                article_dicts_list.append(req_article_dict)
+
+    print(len(category_articles))
+    print(len(article_dicts_list))
+
+    if len(article_dicts_list) == 0:
+        print("There were no new stories today!")
 
     return article_dicts_list
 
@@ -40,17 +51,29 @@ def create_list_categories(drop_category):
 def show_index_page(request):
 
     category = request.POST.get('choices_category')
-    artic_list = create_list_categories(category)
 
     if category == 'askstories':
+        list_id = Askstor.objects.all().values_list('id_ask', flat=True)
+        artic_list = create_list_categories(category, list_id)
         askstor(artic_list)
+
     elif category == 'jobstories':
+        list_id = Jobstor.objects.all().values_list('id', flat=True)
+        artic_list = create_list_categories(category, list_id)
         jobstor(artic_list)
+
     elif category == 'newstories':
+        list_id = Newstor.objects.all().values_list('id', flat=True)
+        artic_list = create_list_categories(category, list_id)
         newstor(artic_list)
+
     elif category == 'showstories':
+        list_id = Showstor.objects.all().values_list('id', flat=True)
+        artic_list = create_list_categories(category, list_id)
         showstor(artic_list)
+
     return render(request, 'task1/index.html')
+
 
 def askstor(articles_list):
 
@@ -74,14 +97,14 @@ def askstor(articles_list):
 
     return HttpResponse('Your request has been completed! Go to the admin panel!')
 
+
 def jobstor(articles_list):
 
     for item in articles_list:
-
         try:
             table_job = Jobstor.objects.create(
                 by=item['by'],
-                id_job=item['id'],
+                id=item.get('id', ''),
                 score=item.get('score', ''),
                 text=item.get('text', ''),
                 time=item['time'],
@@ -96,15 +119,15 @@ def jobstor(articles_list):
 
     return HttpResponse('Your request has been completed! Go to the admin panel!')
 
+
 def newstor(articles_list):
 
     for item in articles_list:
-
         try:
             table_new = Newstor.objects.create(
                 by=item['by'],
-                descendants=item['descendants'],
-                id_new=item['id'],
+                descendants=item.get('descendants', ''),
+                id=item.get('id', ''),
                 score=item['score'],
                 time=item['time'],
                 title=item['title'],
@@ -119,15 +142,15 @@ def newstor(articles_list):
 
     return HttpResponse('Your request has been completed! Go to the admin panel!')
 
+
 def showstor(articles_list):
 
     for item in articles_list:
-
         try:
             table_show = Showstor.objects.create(
                 by=item['by'],
-                descendants=item['descendants'],
-                id_show=item['id'],
+                descendants=item.get('descendants', ''),
+                id=item['id'],
                 score=item['score'],
                 text=item.get('text', ''),
                 time=item['time'],
@@ -142,5 +165,3 @@ def showstor(articles_list):
                 print('This item already exists.')
 
     return HttpResponse('Your request has been completed! Go to the admin panel!')
-
-

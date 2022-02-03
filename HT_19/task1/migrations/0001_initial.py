@@ -10,18 +10,3 @@ class Migration(migrations.Migration):
     dependencies = [
     ]
 
-    # operations = [
-    #     migrations.CreateModel(
-    #         name='Askstoris',
-    #         fields=[
-    #             ('by', models.CharField(max_length=200)),
-    #             ('descendants', models.IntegerField()),
-    #             ('id_ask', models.IntegerField(primary_key=True, serialize=False)),
-    #             ('score', models.IntegerField()),
-    #             ('text', models.TextField()),
-    #             ('time', models.IntegerField()),
-    #             ('title', models.CharField(max_length=250)),
-    #             ('type', models.CharField(max_length=200)),
-    #         ],
-    #     ),
-    # ]

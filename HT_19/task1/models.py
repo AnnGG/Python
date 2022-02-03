@@ -49,7 +49,7 @@ class Jobstor(models.Model):
     time = models.IntegerField()
     title = models.CharField(max_length=250)
     type = models.CharField(max_length=200)
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=250)
 
     def __str__(self):
         return self.title
